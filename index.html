@@ -4,103 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Call Agent</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <style>
-    body {
-      background: linear-gradient(135deg, #0d1b2a, #1e3a8a); /* Dark blue gradient */
-      color: #d0e8f2; /* Light sky blue text */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-height: 100vh;
-    }
-    .card {
-      background-color: #142d4c; /* Slightly lighter dark blue */
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      color: #d0e8f2;
-    }
-    .card .card-title,
-    .accordion-button {
-      color: #a1c9f1; /* Sky blue titles */
-      font-weight: 600;
-    }
-    .btn-success {
-      background-color: #5bc0de; /* Sky blue */
-      border-color: #5bc0de;
-      color: #0d1b2a;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    .btn-success:hover {
-      background-color: #39a0f2; /* brighter sky blue */
-      border-color: #39a0f2;
-      color: white;
-    }
-    .form-control {
-      background-color: #1f375a; /* dark input bg */
-      border: 1px solid #3a599e;
-      color: #cbdcf8;
-    }
-    .form-control:focus {
-      background-color: #2a4a8a;
-      border-color: #5bc0de;
-      color: #e1f0ff;
-      box-shadow: none;
-    }
-    label {
-      color: #a1c9f1;
-    }
-    .accordion-button:not(.collapsed) {
-      background-color: #224b8a;
-      color: #d0e8f2;
-      box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.15);
-    }
-    .accordion-button {
-      background-color: #1a3b70;
-      color: #a1c9f1;
-    }
-    .accordion-body {
-      color: #cbdcf8;
-    }
-    .alert {
-      background-color: #21568a;
-      border: none;
-      color: #d0e8f2;
-    }
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background-color: #122c57;
-      padding: 10px 0;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
-      color: #a1c9f1;
-    }
-    .logo-img {
-      width: 40px;
-      margin-right: 10px;
-      filter: brightness(0) invert(1);
-    }
-    a, a:hover {
-      color: #5bc0de;
-      text-decoration: none;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Sticky Header -->
-  <div class="container sticky-header d-flex align-items-center justify-content-center">
-    <img src="https://cdn-icons-png.flaticon.com/512/4829/4829605.png" alt="Logo" class="logo-img" />
+  <div class="container-fluid sticky-header py-2 d-flex align-items-center justify-content-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/4829/4829605.png" alt="Logo" class="logo-img me-2" />
     <h4 class="mb-0 fw-bold">AI Call Agent</h4>
   </div>
 
   <div class="container py-4">
-    <div class="row g-4 align-items-start">
-      <!-- Left: Form -->
+    <div class="row g-4">
+      <!-- Form Section -->
       <div class="col-lg-6">
-        <div class="card shadow-sm">
+        <div class="card custom-card">
           <div class="card-body">
             <h5 class="card-title">📇 Caller Info Setup</h5>
             <form id="infoForm">
@@ -114,7 +31,6 @@
                   <input type="text" class="form-control" id="amountDue" required />
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="companyName" class="form-label">🏢 Company</label>
@@ -125,90 +41,50 @@
                   <input type="tel" class="form-control" id="phoneNumber" required />
                 </div>
               </div>
-
-              <button type="submit" class="btn btn-success w-100 mt-2">🚀 Initiate Call</button>
+              <button type="submit" class="btn btn-sky w-100 mt-2">🚀 Initiate Call</button>
             </form>
             <div class="mt-3 alert d-none" id="responseBox"></div>
           </div>
         </div>
       </div>
 
-      <!-- Right: Info + Images -->
+      <!-- Accordion Section -->
       <div class="col-lg-6">
-        <!-- Accordion for compact description -->
         <div class="accordion" id="infoAccordion">
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="descHeading">
-              <button
-                class="accordion-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#descCollapse"
-                aria-expanded="true"
-                aria-controls="descCollapse"
-              >
+          <div class="accordion-item mb-3 custom-card">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#descCollapse">
                 🧠 Web App Description
               </button>
             </h2>
-            <div
-              id="descCollapse"
-              class="accordion-collapse collapse show"
-              aria-labelledby="descHeading"
-              data-bs-parent="#infoAccordion"
-            >
+            <div id="descCollapse" class="accordion-collapse collapse">
               <div class="accordion-body">
-                <p>
-                  This <strong>AI-powered agent</strong> calls customers about overdue loans using
-                  <span class="text-primary fw-semibold">OpenAI</span> +
-                  <span class="text-danger fw-semibold">Twilio</span>.
-                </p>
+                <p>This <strong>AI-powered agent</strong> makes intelligent phone calls to remind customers of their due payments using OpenAI and Twilio.</p>
                 <ul>
-                  <li>📌 Personalized system prompt</li>
-                  <li>💬 Natural AI voice</li>
-                  <li>⚙️ Automated call flow</li>
+                  <li>🎯 Personalized AI response</li>
+                  <li>📞 Fully automated voice call</li>
+                  <li>🛠️ Flexible system prompt</li>
                 </ul>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
-                  class="img-fluid rounded mt-2"
-                  style="max-width: 150px"
-                  alt="AI Agent"
-                />
+                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="img-fluid rounded mt-3" style="max-width: 150px;" />
               </div>
             </div>
           </div>
 
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="notesHeading">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#notesCollapse"
-                aria-expanded="false"
-                aria-controls="notesCollapse"
-              >
+          <div class="accordion-item custom-card">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#notesCollapse">
                 🗒️ Important Notes
               </button>
             </h2>
-            <div
-              id="notesCollapse"
-              class="accordion-collapse collapse"
-              aria-labelledby="notesHeading"
-              data-bs-parent="#infoAccordion"
-            >
+            <div id="notesCollapse" class="accordion-collapse collapse">
               <div class="accordion-body">
                 <ul class="small">
-                  <li>✅ Use verified Twilio numbers for testing</li>
-                  <li>⏱️ OpenAI replies may take 2–4 sec</li>
-                  <li>🚫 Avoid refreshing during a call</li>
-                  <li>🌐 Ensure backend is live</li>
+                  <li>✅ Use verified Twilio numbers</li>
+                  <li>⚡ OpenAI latency affects timing</li>
+                  <li>🛑 Don’t refresh mid-call</li>
+                  <li>🌐 Ensure backend is deployed</li>
                 </ul>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1150/1150631.png"
-                  class="img-fluid rounded"
-                  style="max-width: 120px"
-                  alt="Reminder Icon"
-                />
+                <img src="https://cdn-icons-png.flaticon.com/512/1150/1150631.png" class="img-fluid mt-2 rounded" style="max-width: 120px;" />
               </div>
             </div>
           </div>
@@ -217,7 +93,6 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
