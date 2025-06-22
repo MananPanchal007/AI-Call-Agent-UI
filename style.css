@@ -1,16 +1,68 @@
 body {
-  background-color: #f4f7fa;
+  background-color: #0d1117;
+  color: #c9d1d9;
   font-family: 'Segoe UI', sans-serif;
 }
 
-.card {
-  border-radius: 12px;
+.sticky-header {
+  background-color: #161b22;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  color: #58a6ff;
 }
 
-.card-title {
+.logo-img {
+  width: 36px;
+  filter: brightness(0) invert(1);
+}
+
+.custom-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  color: #c9d1d9;
+}
+
+.accordion-button {
+  background-color: #0d1117;
+  color: #58a6ff;
+  border: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #1f2937;
+  color: #c9d1d9;
+}
+
+.accordion-body {
+  color: #c9d1d9;
+}
+
+.btn-sky {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
   font-weight: 600;
 }
 
+.btn-sky:hover {
+  background-color: #1f6feb;
+  color: white;
+}
+
+.form-control {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+}
+
+.form-control:focus {
+  background-color: #0d1117;
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+}
+
 .alert {
-  font-size: 0.95rem;
+  background-color: #1c2a3a;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
 }
