@@ -11,34 +11,85 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container mt-5">
-    <h2 class="mb-4 text-center">📞 AI Call Agent Setup</h2>
+  <div class="container py-5">
+    <!-- Logo Header -->
+    <div class="text-center mb-5">
+      <img src="https://cdn-icons-png.flaticon.com/512/4829/4829605.png" alt="AI Call Logo" width="80" class="mb-3" />
+      <h1 class="display-5 fw-bold text-primary">AI Call Agent</h1>
+      <p class="text-muted">🤖 Your automated voice assistant for overdue payment reminders</p>
+    </div>
 
-    <form id="infoForm">
-      <div class="mb-3">
-        <label for="userName" class="form-label">User Name</label>
-        <input type="text" class="form-control" id="userName" required />
+    <div class="row g-4">
+      <!-- Left Section -->
+      <div class="col-lg-6">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h4 class="card-title text-success">🧠 Web App Description</h4>
+            <p class="card-text">
+              This <strong>AI-powered voice assistant</strong> automatically places calls to customers about overdue loans.
+              It combines the power of <span class="text-primary fw-semibold">OpenAI</span> and <span class="text-danger fw-semibold">Twilio</span> for real-time, intelligent voice interactions.
+            </p>
+            <ul>
+              <li>📌 Personalized system prompt</li>
+              <li>💬 Natural AI voice interaction</li>
+              <li>⚙️ Fully automated call flow</li>
+            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="AI Agent" class="img-fluid mt-3 rounded shadow-sm" />
+          </div>
+        </div>
+
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title text-warning">🗒️ Notes</h4>
+            <ul class="card-text small">
+              <li>✅ Verify Twilio number for trial accounts</li>
+              <li>⏱️ OpenAI response delay depends on request load</li>
+              <li>🚫 Do not reload while waiting for response</li>
+              <li>🌐 Ensure backend is deployed and reachable</li>
+            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/1150/1150631.png" alt="Reminder Icon" class="img-fluid mt-3 rounded shadow-sm" />
+          </div>
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label for="amountDue" class="form-label">Overdue Amount</label>
-        <input type="text" class="form-control" id="amountDue" required />
+      <!-- Right Section -->
+      <div class="col-lg-6">
+        <div class="card shadow h-100">
+          <div class="card-body">
+            <h4 class="card-title mb-4 text-primary">📇 Caller Info Setup</h4>
+            <form id="infoForm">
+              <div class="mb-3">
+                <label for="userName" class="form-label">👤 User Name</label>
+                <input type="text" class="form-control" id="userName" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="amountDue" class="form-label">💰 Overdue Amount</label>
+                <input type="text" class="form-control" id="amountDue" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="companyName" class="form-label">🏢 Company Name</label>
+                <input type="text" class="form-control" id="companyName" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">📞 Phone Number to Call</label>
+                <input type="tel" class="form-control" id="phoneNumber" required />
+              </div>
+
+              <button type="submit" class="btn btn-success w-100">🚀 Initiate Call</button>
+            </form>
+
+            <div class="mt-3 alert d-none" id="responseBox"></div>
+
+            <div class="text-center mt-4">
+              <img src="https://cdn-icons-png.flaticon.com/512/1617/1617482.png" alt="Call Icon" width="60" class="img-fluid" />
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="mb-3">
-        <label for="companyName" class="form-label">Company Name</label>
-        <input type="text" class="form-control" id="companyName" required />
-      </div>
-
-      <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Phone Number to Call</label>
-        <input type="tel" class="form-control" id="phoneNumber" required />
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Initiate Call</button>
-    </form>
-
-    <div class="mt-4 alert d-none" id="responseBox"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
