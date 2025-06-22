@@ -1,52 +1,50 @@
-const API_BASE = "https://ai-call-agent-8dpv.onrender.com"; // change to your Render backend URL
+const apiBase = "https://ai-call-agent-8dpv.onrender.com"; // update if needed
 
-// Call API
-document.getElementById("callForm").addEventListener("submit", async (e) => {
+document.getElementById("infoForm").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const phone = document.getElementById("phoneNumber").value;
-  const callStatus = document.getElementById("callStatus");
-  callStatus.innerHTML = "📞 Calling...";
+
+  const userName = document.getElementById("userName").value.trim();
+  const amountDue = document.getElementById("amountDue").value.trim();
+  const companyName = document.getElementById("companyName").value.trim();
+  const phoneNumber = document.getElementById("phoneNumber").value.trim();
+
+  const responseBox = document.getElementById("responseBox");
+  responseBox.classList.add("d-none");
+  responseBox.classList.remove("alert-success", "alert-danger");
 
   try {
-    const res = await fetch(`${API_BASE}/call`, {
+    // Step 1: Set system prompt
+    const setPromptRes = await fetch(`${apiBase}/set-caller-info`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone_number: phone })
+      body: JSON.stringify({ user_name: userName, amount_due: amountDue, company_name: companyName }),
     });
-    const data = await res.json();
 
-    if (data.sid) {
-      callStatus.innerHTML = `<span class="text-success">✅ Call started! SID: ${data.sid}</span>`;
-    } else {
-      callStatus.innerHTML = `<span class="text-danger">❌ Error: ${data.error}</span>`;
+    const promptData = await setPromptRes.json();
+
+    if (promptData.error) {
+      throw new Error(promptData.error);
     }
-  } catch (err) {
-    callStatus.innerHTML = `<span class="text-danger">❌ Error: ${err.message}</span>`;
-  }
-});
 
-// Prompt API
-document.getElementById("promptForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const prompt = document.getElementById("systemPrompt").value;
-  const promptStatus = document.getElementById("promptStatus");
-
-  promptStatus.innerHTML = "🧠 Updating prompt...";
-
-  try {
-    const res = await fetch(`${API_BASE}/system-prompt`, {
+    // Step 2: Make the call
+    const callRes = await fetch(`${apiBase}/call`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: prompt })
+      body: JSON.stringify({ phone_number: phoneNumber }),
     });
-    const data = await res.json();
 
-    if (data.message) {
-      promptStatus.innerHTML = `<span class="text-success">✅ ${data.message}</span>`;
-    } else {
-      promptStatus.innerHTML = `<span class="text-danger">❌ Error: ${data.error}</span>`;
+    const callData = await callRes.json();
+
+    if (callData.error) {
+      throw new Error(callData.error);
     }
+
+    responseBox.textContent = "✅ Call initiated successfully!";
+    responseBox.classList.add("alert", "alert-success");
   } catch (err) {
-    promptStatus.innerHTML = `<span class="text-danger">❌ Error: ${err.message}</span>`;
+    responseBox.textContent = `❌ ${err.message}`;
+    responseBox.classList.add("alert", "alert-danger");
   }
+
+  responseBox.classList.remove("d-none");
 });
