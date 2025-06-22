@@ -5,19 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Call Agent</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .sticky-header {
+      background-color: #161b22;
+      color: #58a6ff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+    .logo-img {
+      width: 40px;
+      filter: brightness(0) invert(1);
+      margin-right: 10px;
+    }
+    .card {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+    }
+    .card-title {
+      color: #58a6ff;
+    }
+    .form-label {
+      color: #a3b8cc;
+    }
+    .form-control {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+    }
+    .form-control:focus {
+      border-color: #58a6ff;
+      box-shadow: none;
+    }
+    .btn-submit {
+      background-color: #58a6ff;
+      color: #0d1117;
+      border: none;
+      font-weight: bold;
+    }
+    .btn-submit:hover {
+      background-color: #1f6feb;
+      color: white;
+    }
+    .alert {
+      background-color: #21262d;
+      color: #c9d1d9;
+      border: none;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .text-sky {
+      color: #79c0ff;
+    }
+  </style>
 </head>
 <body>
-  <div class="container-fluid sticky-header py-2 d-flex align-items-center justify-content-center">
-    <img src="https://cdn-icons-png.flaticon.com/512/4829/4829605.png" alt="Logo" class="logo-img me-2" />
+  <!-- Sticky Header -->
+  <div class="sticky-header d-flex align-items-center justify-content-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/4829/4829605.png" alt="Logo" class="logo-img" />
     <h4 class="mb-0 fw-bold">AI Call Agent</h4>
   </div>
 
+  <!-- Main Content -->
   <div class="container py-4">
     <div class="row g-4">
-      <!-- Form Section -->
+      <!-- Left Column: Form + Notes -->
       <div class="col-lg-6">
-        <div class="card custom-card">
+        <!-- Caller Info Form -->
+        <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">📇 Caller Info Setup</h5>
             <form id="infoForm">
@@ -41,58 +106,51 @@
                   <input type="tel" class="form-control" id="phoneNumber" required />
                 </div>
               </div>
-              <button type="submit" class="btn btn-sky w-100 mt-2">🚀 Initiate Call</button>
+              <button type="submit" class="btn btn-submit w-100 mt-2">🚀 Initiate Call</button>
             </form>
             <div class="mt-3 alert d-none" id="responseBox"></div>
           </div>
         </div>
+
+        <!-- Notes -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">🗒️ Important Notes</h5>
+            <ul>
+              <li>✅ Twilio number must be verified if on trial.</li>
+              <li>⏱️ AI replies may take 2–5 seconds.</li>
+              <li>🚫 Avoid refreshing after call initiation.</li>
+              <li>🌐 Ensure backend is deployed and reachable.</li>
+            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/1150/1150631.png" class="img-fluid mt-2" style="max-width: 120px;" alt="Note Icon" />
+          </div>
+        </div>
       </div>
 
-      <!-- Accordion Section -->
+      <!-- Right Column: Description -->
       <div class="col-lg-6">
-        <div class="accordion" id="infoAccordion">
-          <div class="accordion-item mb-3 custom-card">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#descCollapse">
-                🧠 Web App Description
-              </button>
-            </h2>
-            <div id="descCollapse" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <p>This <strong>AI-powered agent</strong> makes intelligent phone calls to remind customers of their due payments using OpenAI and Twilio.</p>
-                <ul>
-                  <li>🎯 Personalized AI response</li>
-                  <li>📞 Fully automated voice call</li>
-                  <li>🛠️ Flexible system prompt</li>
-                </ul>
-                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="img-fluid rounded mt-3" style="max-width: 150px;" />
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item custom-card">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#notesCollapse">
-                🗒️ Important Notes
-              </button>
-            </h2>
-            <div id="notesCollapse" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <ul class="small">
-                  <li>✅ Use verified Twilio numbers</li>
-                  <li>⚡ OpenAI latency affects timing</li>
-                  <li>🛑 Don’t refresh mid-call</li>
-                  <li>🌐 Ensure backend is deployed</li>
-                </ul>
-                <img src="https://cdn-icons-png.flaticon.com/512/1150/1150631.png" class="img-fluid mt-2 rounded" style="max-width: 120px;" />
-              </div>
-            </div>
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">🧠 Web App Description</h5>
+            <p>
+              This <span class="text-sky">AI-powered agent</span> makes intelligent phone calls to customers
+              regarding overdue loan payments.
+              It combines <strong class="text-sky">OpenAI</strong> for smart responses and
+              <strong class="text-danger">Twilio</strong> for real-time voice communication.
+            </p>
+            <ul>
+              <li>📌 Personalized voice prompts based on user input</li>
+              <li>💬 Natural conversational interaction</li>
+              <li>⚙️ Fully automated workflow</li>
+            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="img-fluid rounded mt-3" style="max-width: 150px;" alt="AI Assistant" />
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
