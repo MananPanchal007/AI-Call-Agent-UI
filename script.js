@@ -1,4 +1,4 @@
-const apiBase = "https://ai-call-agent-8dpv.onrender.com"; // Adjust if needed
+const apiBase = "https://ai-call-agent-8dpv.onrender.com";
 
 document.getElementById("infoForm").addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -48,11 +48,36 @@ async function loadCallHistory() {
   const list = document.getElementById("callHistoryList");
   list.innerHTML = "";
 
-  data.history.reverse().slice(0, 5).forEach((entry) => {
+  for (const entry of data.history.reverse().slice(0, 5)) {
     const li = document.createElement("li");
-    li.textContent = `📞 ${entry.from_number || "Unknown"} → ${entry.to_number || "User"} at ${new Date(entry.timestamp).toLocaleString()} - ${entry.status}`;
+    const time = new Date(entry.timestamp).toLocaleString();
+    let text = `📞 ${entry.from_number || "Unknown"} → ${entry.to_number || "User"} at ${time} - ${entry.status}`;
+
+    // Add download link for recording
+    if (entry.call_sid) {
+      try {
+        const recRes = await fetch(`${apiBase}/recordings/mp3/${entry.call_sid}`);
+        const recData = await recRes.json();
+        if (recData.mp3_url) {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = recData.mp3_url;
+          downloadLink.target = "_blank";
+          downloadLink.textContent = " 🎵 Download MP3";
+          downloadLink.style.marginLeft = "8px";
+          li.textContent = text;
+          li.appendChild(downloadLink);
+        } else {
+          li.textContent = text;
+        }
+      } catch {
+        li.textContent = text;
+      }
+    } else {
+      li.textContent = text;
+    }
+
     list.appendChild(li);
-  });
+  }
 }
 
 window.onload = loadCallHistory;
